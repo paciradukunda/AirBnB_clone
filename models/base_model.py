@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 
-""" Module to handle unique id and time"""
+""" global FireStorage object """
+from . import storage
+
+""" Standard library"""
 from uuid import uuid4
 from datetime import datetime
 
@@ -36,8 +39,8 @@ class BaseModel:
                     self.__setattr__(k, v)
                 else:
                     self.__setattr__(k, v)
-
-            return None
+        else:
+            storage.new(self)
 
     def __str__(self) -> str:
         """prints the objects details
@@ -49,6 +52,7 @@ class BaseModel:
     def save(self) -> None:
         """saves the object"""
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self) -> dict:
         """dictionary replesantation of object
