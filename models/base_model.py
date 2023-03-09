@@ -51,7 +51,7 @@ class BaseModel:
 
     def save(self) -> None:
         """saves the object"""
-        self.updated_at = str(datetime.now())
+        self.updated_at = str(datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f"))
         storage.save()
 
     def to_dict(self) -> dict:
