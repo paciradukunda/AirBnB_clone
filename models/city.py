@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """holds city class"""
 
-from .base_model import BaseModel
+from . import BaseModel
 
 
 class city(BaseModel):
