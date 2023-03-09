@@ -1,7 +1,7 @@
 #!/usr/bin/python
 """holds class State"""
 
-from .base_model import BaseModel
+from . import BaseModel
 
 
 class State(BaseModel):
