@@ -1,13 +1,13 @@
 #!/usr/bin/python3
-"""holds class State"""
+"""holds amenity class"""
 
 from .base_model import BaseModel
 
 
-class State(BaseModel):
-    """Representation of state"""
+class amenity(BaseModel):
+    """represent amenity"""
     name = ""
 
     def __init__(self, *args, **kwargs):
-        """initializes state"""
+        """initialize amenity"""
         super().__init__(*args, **kwargs)
