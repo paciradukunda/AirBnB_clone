@@ -30,13 +30,13 @@ class BaseModel:
         self.created_at: datetime = datetime.now()
         self.updated_at: datetime = datetime.now()
 
-        if kwargs != None:
+        if len(kwargs) > 0:
             for k, v in kwargs.items():
                 if k == "__class__":
                     continue
                 elif k == "created_at" or k == "updated_at":
                     date_ = datetime.strptime(v, "%Y-%m-%dT%H:%M:%S.%f")
-                    self.__setattr__(k, v)
+                    self.__setattr__(k, date_)
                 else:
                     self.__setattr__(k, v)
         else:
@@ -51,7 +51,7 @@ class BaseModel:
 
     def save(self) -> None:
         """saves the object"""
-        self.updated_at = datetime.now()
+        self.updated_at = str(datetime.now())
         storage.save()
 
     def to_dict(self) -> dict:
