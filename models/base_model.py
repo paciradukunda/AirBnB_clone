@@ -47,11 +47,11 @@ class BaseModel:
 
         return: str
         """
-        return f"[{__class__.__name__}] ({self.id}) {self.__dict__}"
+        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self) -> None:
         """saves the object"""
-        self.updated_at = str(datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f"))
+        self.updated_at = datetime.now()
         storage.save()
 
     def to_dict(self) -> dict:
@@ -59,10 +59,8 @@ class BaseModel:
 
         return: dictinary
         """
-        out_dic = self.__dict__
-
-        out_dic["created_at"] = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
-        out_dic["updated_at"] = self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
-        out_dic["__class__"] = __class__.__name__
-
-        return out_dic
+        new_dict = {k: v for k, v in self.__dict__.items()}
+        new_dict["created_at"] = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+        new_dict["updated_at"] = self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+        new_dict["__class__"] = self.__class__.__name__
+        return new_dict

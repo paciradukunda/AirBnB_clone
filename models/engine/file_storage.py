@@ -26,17 +26,47 @@ class FileStorage:
             obj: the new object
         """
         key = str(obj.__class__.__name__) + "." + obj.id
-        self.__objects[key] = obj.to_dict()
+        self.__objects[key] = obj
 
     def save(self) -> None:
         """Saves all objects
         It saves all objects in __object into json file
         """
-        with open(self.__file_path, "w") as afl:
-            json.dump(self.__objects, afl, indent=4)
+        try:
+            json_dict = {
+                k: (lambda x: x.to_dict())(v) for k, v in self.__objects.items()
+            }
+            with open(self.__file_path, "w") as afl:
+                json.dump(json_dict, afl, indent=4)
+        except AttributeError:
+            print(self.__objects)
 
     def reload(self) -> None:
+        from ..amenity import Amenity
+        from ..base_model import BaseModel
+        from ..city import City
+        from ..place import Place
+        from ..Review import Review
+        from ..state import State
+        from ..user import User
+
         """loads all obhects into __objects"""
+        dict_of_cls = {
+            "Amenity": Amenity,
+            "BaseModel": BaseModel,
+            "City": City,
+            "Place": Place,
+            "Review": Review,
+            "State": State,
+            "User": User,
+        }
         if os.path.exists(self.__file_path):
             with open(self.__file_path, "r") as rfl:
-                self.__objects = json.load(rfl)
+                loaded_obj = json.load(rfl)
+            try:
+                for k, v in loaded_obj.items():
+                    obj_cls = dict_of_cls[v["__class__"]]
+                    obj = obj_cls(**v)
+                    self.__objects[k] = obj
+            except KeyError as e:
+                print("** Class doesn't exist **")
