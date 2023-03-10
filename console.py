@@ -107,7 +107,7 @@ class HBNBCommand(cmd.Cmd):
             all_list.append(str(new_ob))
         print(all_list)
 
-    def do_update(self, *args):
+    def do_update(self, arg):
         """Updates given object
         args:
             arg[0]: class name
@@ -115,7 +115,33 @@ class HBNBCommand(cmd.Cmd):
             arg[2]: attribute name
             arg[3]: attribute value
         """
-        pass
+        arg = arg.split()
+        if len(arg) == 4:
+            if arg[0] in self.list_of_class:
+                key = arg[0] + "." + arg[1]
+                try:
+                    obj = self.obj_dict[key]
+                    new_ob = BaseModel(**obj)
+                    new_ob.__setattr__(arg[2], arg[3].strip('"'))
+                    self.obj_dict[key] = new_ob.to_dict()
+                    new_ob.save()
+                except KeyError:
+                    print("** no instance found **")
+                except AttributeError:
+                    print("** attribute doesnt exist")
+            else:
+                print("** class doesn't exist **")
+        elif len(arg) == 2:
+            print("** attribute name missing **")
+        elif len(arg) == 3:
+            print("** value missing **")
+        elif len(arg) == 1:
+            if len(arg[0]) < 20:
+                print("** instance id missing **")
+            else:
+                print("** class name missing **")
+        else:
+            print("** class name missing **")
 
 
 if __name__ == "__main__":

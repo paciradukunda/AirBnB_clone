@@ -1,14 +1,15 @@
 #!/usr/bin/python3
 """holds city class"""
 
-from . import BaseModel
+from .base_model import BaseModel
 
 
 class city(BaseModel):
     """Representation of city"""
-    state_id = ""
-    name = ""
+
+    state_id: str = ""
+    name: str = ""
 
     def __init__(self, *args, **kwargs):
-        """"initialize city"""
+        """ "initialize city"""
         super().__init__(*args, **kwargs)

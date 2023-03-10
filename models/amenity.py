@@ -6,7 +6,8 @@ from .base_model import BaseModel
 
 class amenity(BaseModel):
     """represent amenity"""
-    name = ""
+
+    name: str = ""
 
     def __init__(self, *args, **kwargs):
         """initialize amenity"""

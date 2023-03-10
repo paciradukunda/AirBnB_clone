@@ -5,10 +5,11 @@ from .base_model import BaseModel
 
 class User(BaseModel):
     """represent User"""
-    email = ""
-    password = ""
-    first_name = ""
-    last_name = ""
+
+    email: str = ""
+    password: str = ""
+    first_name: str = ""
+    last_name: str = ""
 
     def __init__(self, *args, **kwargs):
         """initializes user"""

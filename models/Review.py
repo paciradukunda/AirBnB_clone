@@ -4,10 +4,11 @@ from .base_model import BaseModel
 
 
 class Review(BaseModel):
-    """represent review """
-    place_id = ""
-    user_id = ""
-    text = ""
+    """represent review"""
+
+    place_id: str = ""
+    user_id: str = ""
+    text: str = ""
 
     def __init__(self, *args, **kwargs):
         """initializes review"""
