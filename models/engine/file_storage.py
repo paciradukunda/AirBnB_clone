@@ -1,15 +1,18 @@
 #!/usr/bin/python3
-
+"""Defines the FileStorage class."""
 import json
 import os
 
 
 class FileStorage:
-    """class that stores objects in jason"""
+    """Represent an abstracted storage engine.
 
-    __file_path: str = os.path.join(
-        os.getcwd(), "models", "engine", "files", "file.json"
-    )
+    Attributes:
+        __file_path (str): The name of the file to save objects to.
+        __objects (dict): A dictionary of instantiated objects.
+    """
+
+    __file_path: str = os.path.join(os.getcwd(), "file.json")
     __objects: dict = {}
 
     def all(self) -> dict:
@@ -18,7 +21,7 @@ class FileStorage:
 
         return: dict of objects
         """
-        return self.__objects
+        return FileStorage.__objects
 
     def new(self, obj) -> None:
         """Add new object to __object
@@ -26,21 +29,17 @@ class FileStorage:
             obj: the new object
         """
         key = str(obj.__class__.__name__) + "." + obj.id
-        self.__objects[key] = obj
+        FileStorage.__objects[key] = obj
 
     def save(self) -> None:
         """Saves all objects
         It saves all objects in __object into json file
         """
-        try:
-            json_dict = {
-                k: (lambda x: x.to_dict())(v)
-                for k, v in self.__objects.items()
-            }
-            with open(self.__file_path, "w") as afl:
-                json.dump(json_dict, afl, indent=4)
-        except AttributeError:
-            print(self.__objects)
+        json_dict = {
+            k: (lambda x: x.to_dict())(v) for k, v in FileStorage.__objects.items()
+        }
+        with open(FileStorage.__file_path, "w") as afl:
+            json.dump(json_dict, afl)
 
     def reload(self) -> None:
         from ..amenity import Amenity
@@ -61,13 +60,12 @@ class FileStorage:
             "State": State,
             "User": User,
         }
-        if os.path.exists(self.__file_path):
-            with open(self.__file_path, "r") as rfl:
+        if os.path.exists(FileStorage.__file_path):
+            with open(FileStorage.__file_path, "r") as rfl:
                 loaded_obj = json.load(rfl)
-            try:
                 for k, v in loaded_obj.items():
                     obj_cls = dict_of_cls[v["__class__"]]
                     obj = obj_cls(**v)
                     self.__objects[k] = obj
-            except KeyError as e:
-                print("** Class doesn't exist **")
+        else:
+            return

@@ -1,14 +1,13 @@
 #!/usr/bin/python3
 """holds amenity class"""
-
 from .base_model import BaseModel
 
 
 class Amenity(BaseModel):
-    """represent amenity"""
+    """Represent an amenity.
+
+    Attributes:
+        name (str): The name of the amenity.
+    """
 
     name: str = ""
-
-    def __init__(self, *args, **kwargs):
-        """initialize amenity"""
-        super().__init__(*args, **kwargs)
