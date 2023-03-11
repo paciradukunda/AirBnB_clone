@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-""" holds user class"""
-from .base_model import BaseModel
+"""Defines the User class."""
+from models.base_model import BaseModel
 
 
 class User(BaseModel):
@@ -13,7 +13,7 @@ class User(BaseModel):
         last_name (str): The last name of the user.
     """
 
-    email: str = ""
-    password: str = ""
-    first_name: str = ""
-    last_name: str = ""
+    email = ""
+    password = ""
+    first_name = ""
+    last_name = ""

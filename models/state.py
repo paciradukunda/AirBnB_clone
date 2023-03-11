@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-"""holds class State"""
-from .base_model import BaseModel
+"""Defines the State class."""
+from models.base_model import BaseModel
 
 
 class State(BaseModel):
@@ -10,4 +10,4 @@ class State(BaseModel):
         name (str): The name of the state.
     """
 
-    name: str = ""
+    name = ""
