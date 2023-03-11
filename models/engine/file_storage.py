@@ -34,7 +34,8 @@ class FileStorage:
         """
         try:
             json_dict = {
-                k: (lambda x: x.to_dict())(v) for k, v in self.__objects.items()
+                k: (lambda x: x.to_dict())(v)
+                for k, v in self.__objects.items()
             }
             with open(self.__file_path, "w") as afl:
                 json.dump(json_dict, afl, indent=4)
