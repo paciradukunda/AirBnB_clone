@@ -35,9 +35,8 @@ class FileStorage:
         """Saves all objects
         It saves all objects in __object into json file
         """
-        json_dict = {
-            k: (lambda x: x.to_dict())(v) for k, v in FileStorage.__objects.items()
-        }
+        odict = FileStorage.__objects
+        json_dict = {obj: odict[obj].to_dict() for obj in odict.keys()}
         with open(FileStorage.__file_path, "w") as afl:
             json.dump(json_dict, afl)
 
