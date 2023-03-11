@@ -40,10 +40,7 @@ class BaseModel:
             storage.new(self)
 
     def __str__(self) -> str:
-        """prints the objects details
-
-        return: str
-        """
+        """Return the str of the objects details"""
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self) -> None:
