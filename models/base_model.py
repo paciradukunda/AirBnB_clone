@@ -1,11 +1,8 @@
 #!/usr/bin/python3
 
-""" global FireStorage object """
-from . import storage
-
-""" Standard library"""
-from uuid import uuid4
 from datetime import datetime
+from uuid import uuid4
+from . import storage
 
 
 class BaseModel:
@@ -60,7 +57,9 @@ class BaseModel:
         return: dictinary
         """
         new_dict = {k: v for k, v in self.__dict__.items()}
-        new_dict["created_at"] = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
-        new_dict["updated_at"] = self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+        created_at_str = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+        new_dict["created_at"] = created_at_str
+        updated_at_str = self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+        new_dict["updated_at"] = updated_at_str
         new_dict["__class__"] = self.__class__.__name__
         return new_dict
