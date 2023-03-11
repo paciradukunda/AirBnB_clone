@@ -1,7 +1,6 @@
 #!/usr/bin/python3
-"""holds city class"""
-
-from .base_model import BaseModel
+"""Defines the City class."""
+from models.base_model import BaseModel
 
 
 class City(BaseModel):
@@ -12,5 +11,5 @@ class City(BaseModel):
         name (str): The name of the city.
     """
 
-    state_id: str = ""
-    name: str = ""
+    state_id = ""
+    name = ""
